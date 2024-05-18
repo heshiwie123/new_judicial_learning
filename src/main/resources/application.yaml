@@ -1,0 +1,34 @@
+server:
+  port: 10030
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_judicia_study?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: Wei20021016
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    mongodb:  #mongodb连接
+      database: Judicial_learning
+      host: 127.0.0.1
+      port: 27017
+  application:
+    name: judicial_learning
+
+
+mybatis-plus: #mybatis-plus 配置
+  type-aliases-package: com.he.domin.entity.mysql
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# /api-docs endpoint custom path 默认 /v3/api-docs
+springdoc:
+  api-docs:
+    path: /api-docs
+  # swagger 相关配置在  springdoc.swagger-ui
+  swagger-ui:
+    path: /swagger-ui.html
+  # swagger-ui custom path
+  show-actuator: true
+
