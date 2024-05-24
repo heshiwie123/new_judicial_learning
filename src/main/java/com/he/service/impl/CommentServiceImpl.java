@@ -74,7 +74,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         log.info("CommentServiceImpl=====>deleteComment------>"+"要删除的评论id"+commentId);
 
         updateWrapper.eq(Comment::getId,commentId);
-        updateWrapper.set(Comment::getIsDeleted,1);
+        updateWrapper.set(Comment::getIsDeleted,true);
 
         int result = commentMapper.update(null, updateWrapper);
         //清除

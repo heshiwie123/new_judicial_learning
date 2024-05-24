@@ -2,7 +2,7 @@ server:
   port: 10030
 
 spring:
-  datasource:
+  datasource: # mysql配置
     url: jdbc:mysql://localhost:3306/user_judicia_study?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: Wei20021016
@@ -14,21 +14,51 @@ spring:
       port: 27017
   application:
     name: judicial_learning
+  servlet:
+    multipart:
+      max-file-size: 10MB   # 单个文件上传的最大上限
+      max-request-size: 100MB  # 整个请求体的最大上限
 
+
+minio: #   minio配置
+  url: http://192.168.186.161:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: file-video-test
 
 mybatis-plus: #mybatis-plus 配置
   type-aliases-package: com.he.domin.entity.mysql
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: false
 
-# /api-docs endpoint custom path 默认 /v3/api-docs
+
+
+
+
+#springdoc相关配置
 springdoc:
-  api-docs:
-    path: /api-docs
-  # swagger 相关配置在  springdoc.swagger-ui
   swagger-ui:
     path: /swagger-ui.html
-  # swagger-ui custom path
-  show-actuator: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.he.controller # 扫描的包，注意改成自己的包
+#    - group: "管理端"
+#      paths-to-match: '/admin/**'
+#      packages-to-scan: com.my.controller
+#    - group: "用户端"
+#      paths-to-match: '/user/**'
+#      packages-to-scan: com.my.controller
 
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

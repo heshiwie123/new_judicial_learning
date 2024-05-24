@@ -13,6 +13,7 @@
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>3.0.2</spring.boot.version>
+        <minio.version>8.5.7</minio.version>
     </properties>
     <dependencies>
 <!--        springboot启动-->
@@ -73,16 +74,21 @@
             <version>1.18.30</version>
         </dependency>
 <!--        swagger springboot3中将javax=====>jakarta   SpringBoot3中需要将springfox替换为====>springdoc。-->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-
 <!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-boot-starter</artifactId>-->
-<!--            <version>3.0.0</version> &lt;!&ndash; 或者其他版本 &ndash;&gt;-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+<!--            <version>2.1.0</version>-->
 <!--        </dependency>-->
+<!--        minio-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>${minio.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.3.0</version>
+        </dependency>
     </dependencies>
 </project>

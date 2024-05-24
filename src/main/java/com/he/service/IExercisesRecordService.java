@@ -1,5 +1,6 @@
 package com.he.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.he.domin.entity.mysql.ExercisesRecord;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface IExercisesRecordService{
      * @param userId 用户id
      * @return 答题记录信息
      */
-    public List<ExercisesRecord> getExercisesRecordListByUserId(Integer userId);
+    public Page<ExercisesRecord> getExercisesRecordListByUserId(Integer userId, Integer pageIndex, Integer pageSize);
 }

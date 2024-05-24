@@ -1,31 +1,34 @@
 package com.he.config;
 
-
-
-
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
-import org.springframework.beans.factory.annotation.Value;
+import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class SwaggerConfig implements WebMvcConfigurer {
-
-    @Value("${spring.application.name:我的应用}")
-    private String applicationName;
-
+public class SwaggerConfig {
     @Bean
-    public OpenAPI openApi() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("云智和后端swagger文档")
-                        .description("这里文档有大致的接口信息，入参出参等")
-                        .contact(new Contact().name("hehsiwei").email("heshiweiol@outlook.com").url("null"))
-                        .version("v2.0"));
+    public GroupedOpenApi adminApi() {      // 创建了一个api接口的分组
+        return GroupedOpenApi.builder()
+                .group("admin-api")         // 分组名称
+                .pathsToMatch("/**")  // 接口请求路径规则
+                .build();
     }
+    @Bean
+    public OpenAPI openAPI(){
+        return new OpenAPI()
+                .info(new Info() // 基本信息配置
+                        .title("fusApi") // 标题
+                        .description("Knife4j说明") // 描述Api接口文档的基本信息
+                        .version("v1") // 版本
+                        // 设置OpenAPI文档的联系信息，包括联系人姓名为"robin"，邮箱为"robin@gmail.com"。
+                        .contact(new Contact().name("robin").email("robin@gmail.com"))
+                        // 设置OpenAPI文档的许可证信息，包括许可证名称为"Apache 2.0"，许可证URL为"http://springdoc.org"。
+                        .license(new License().name("Apache 2.0").url("http://springdoc.org"))
+                );
 
+    }
 }
-

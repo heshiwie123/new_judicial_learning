@@ -64,5 +64,5 @@ public class User{
      *用户是否私密
      */
     @TableField(value = "is_secret")
-    private Integer idSecret;
+    private Integer isSecret;
 }

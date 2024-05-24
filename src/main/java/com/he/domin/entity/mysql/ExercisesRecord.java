@@ -1,10 +1,13 @@
 package com.he.domin.entity.mysql;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
 
 @Data
 @TableName("exercises_record")
@@ -13,7 +16,7 @@ public class ExercisesRecord {
     /**
      * 答题记录id
      */
-    @TableId
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
     /**
      * 用户id
@@ -24,7 +27,7 @@ public class ExercisesRecord {
      * 题目id
      */
     @TableField(value = "exercises_id")
-    private Integer exercisesId;
+    private String exercisesId;
     /**
      * 用户回答
      */
@@ -40,4 +43,9 @@ public class ExercisesRecord {
      */
     @TableField(value = "result_mark")
     private Integer resultMark;
+    /**
+     * 答题时间
+     */
+    @TableField(value = "create_time")
+    private LocalDateTime createTime;
 }

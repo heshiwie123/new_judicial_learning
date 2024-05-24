@@ -2,6 +2,7 @@ package com.he.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.he.domin.entity.mysql.ExercisesRecord;
 import com.he.mapper.ExercisesRecordMapper;
@@ -30,15 +31,17 @@ public class ExercisesRecordServiceImpl extends ServiceImpl<ExercisesRecordMappe
     }
 
     @Override
-    public List<ExercisesRecord> getExercisesRecordListByUserId(Integer userId) {
+    public Page<ExercisesRecord> getExercisesRecordListByUserId(Integer userId,Integer pageIndex,Integer pageSize) {
         log.info("ExercisesRecordServiceImpl=====>getExercisesRecordListByUserId"+"查找用户id userId:"+userId);
 
+        Page<ExercisesRecord> exercisesRecordPageCondition = new Page<>(pageIndex,pageSize);
         queryWrapper.eq(ExercisesRecord::getUserId,userId);
         //查询
-        List<ExercisesRecord> exercisesRecords = exercisesRecordMapper.selectList(queryWrapper);
+//        List<ExercisesRecord> exercisesRecords = exercisesRecordMapper.selectList(queryWrapper);
+        Page<ExercisesRecord> exercisesRecordPageResult = exercisesRecordMapper.selectPage(exercisesRecordPageCondition, queryWrapper);
         //清除
         queryWrapper.clear();
 
-        return exercisesRecords;
+        return exercisesRecordPageResult;
     }
 }
