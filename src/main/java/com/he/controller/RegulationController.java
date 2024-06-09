@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping("/regulation")
@@ -22,29 +23,29 @@ public class RegulationController {
     private IRegulationService regulationService;
 
     @GetMapping("/getRegulationList")
-    @Operation(summary = "getRegulationList" ,description = "根据效力级别排序，根据分页查询获取法规列表")
+    @Operation(summary = "getRegulationList", description = "根据效力级别排序，根据分页查询获取法规列表")
     public ResponseResult getRegulationList(@RequestParam("formulation_organ") @Nullable Integer formulation_organ,
-                                              @RequestParam("pageIndex") Integer pageIndex,
-                                              @RequestParam("perPageSum") Integer perPageSum){
-        log.info("RegulationController=====>getRegulationList"+"pageIndex:"+pageIndex+"perPageSum:"+perPageSum);
+                                            @RequestParam("pageIndex") @Nullable Integer pageIndex,
+                                            @RequestParam("perPageSum") @Nullable Integer perPageSum) {
+        log.info("RegulationController=====>getRegulationList" + "pageIndex:" + pageIndex + "perPageSum:" + perPageSum);
 
         List<Regulation> regulationList = regulationService.getRegulationList(formulation_organ, pageIndex, perPageSum);
 
         //数据包装
         HashMap<String, List<Regulation>> regulationListMap = new HashMap<>();
 
-        regulationListMap.put("regulationList",regulationList);
-        return new ResponseResult(200,"查询法规成功",regulationListMap);
+        regulationListMap.put("regulationList", regulationList);
+        return new ResponseResult(200, "查询法规成功", regulationListMap);
     }
 
     @GetMapping("/getRegulationListByTitle")
-    @Operation(summary = "getRegulationListByTitle" ,description = "根据效力级别排序，部分标题内容进行模糊查询，根据分页查询获取法规列表")
+    @Operation(summary = "getRegulationListByTitle", description = "根据效力级别排序，部分标题内容进行模糊查询，根据分页查询获取法规列表")
     public ResponseResult getRegulationListByTitle(@RequestParam("title") String title,
-                                                     @RequestParam("formulation_organ") @Nullable Integer formulation_organ,
-                                                     @RequestParam("pageIndex") Integer pageIndex,
-                                                     @RequestParam("perPageSum") Integer perPageSum){
+                                                   @RequestParam("formulation_organ") @Nullable Integer formulation_organ,
+                                                   @RequestParam("pageIndex") @Nullable Integer pageIndex,
+                                                   @RequestParam("perPageSum") @Nullable Integer perPageSum) {
 
-        log.info("RegulationController=====>getRegulationList"+"title:"+title+"pageIndex:"+pageIndex+"perPageSum:"+perPageSum);
+        log.info("RegulationController=====>getRegulationList" + "title:" + title + "pageIndex:" + pageIndex + "perPageSum:" + perPageSum);
 
         //查询
         List<Regulation> regulationList = regulationService.getRegulationListByTitle(title, formulation_organ, pageIndex, perPageSum);
@@ -52,8 +53,8 @@ public class RegulationController {
         //数据包装
         HashMap<String, List<Regulation>> regulationListMap = new HashMap<>();
 
-        regulationListMap.put("regulationList",regulationList);
+        regulationListMap.put("regulationList", regulationList);
 
-        return new ResponseResult(200,"获取法规信息成功",regulationListMap);
+        return new ResponseResult(200, "获取法规信息成功", regulationListMap);
     }
 }

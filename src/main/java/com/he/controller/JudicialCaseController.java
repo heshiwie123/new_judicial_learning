@@ -29,8 +29,8 @@ public class JudicialCaseController {
     public ResponseResult getJudicialCaseList(@RequestParam("contract_type") @Nullable Integer contract_type,
                                               @RequestParam("legal_nature") @Nullable Integer legal_nature,
                                               @RequestParam("formulation_organ") @Nullable Integer formulation_organ,
-                                              @RequestParam("pageIndex") Integer pageIndex,
-                                              @RequestParam("perPageSum") Integer perPageSum){
+                                              @RequestParam("pageIndex")  @Nullable Integer pageIndex,
+                                              @RequestParam("perPageSum") @Nullable  Integer perPageSum){
         //日志记录
         log.info("JudicialCaseController=====>getJudicialCaseList"+"contract_type:"+contract_type+"legal_nature:"+legal_nature+"pageIndex:"+pageIndex+"perPageSum:"+perPageSum);
 
@@ -48,8 +48,8 @@ public class JudicialCaseController {
     @GetMapping("/getJudicialCaseListByTile")
     @Operation(summary = "getJudicialCaseListByTile" ,description = "根据标题内容进行模糊查询获取司法案例，这里根据效力级别排序同时根据分页查询条件获取")
     public ResponseResult getJudicialCaseListByTile(@RequestParam("title") @Nullable String title,
-                                                        @RequestParam("pageIndex") Integer pageIndex,
-                                                        @RequestParam("perPageSum") Integer perPageSum){
+                                                        @RequestParam("pageIndex") @Nullable Integer pageIndex,
+                                                        @RequestParam("perPageSum") @Nullable Integer perPageSum){
 
         //日志记录
         log.info("JudicialCaseController=====>getJudicialCaseList"+"title:"+title+"pageIndex:"+pageIndex+"perPageSum:"+perPageSum);

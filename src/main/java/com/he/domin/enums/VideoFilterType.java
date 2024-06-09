@@ -11,8 +11,8 @@ public enum VideoFilterType {
     COMPOSITE_DANMU_MOST(3,"最多弹幕"),
     COMPOSITE_COLLECT_MOST(4,"最多收藏"),
     //付费类型排序
-    PAYMENT_FREE(21,"免费"),
-    PAYMENT_PAY(22,"需要支付"),
+//    PAYMENT_FREE(21,"免费"),
+//    PAYMENT_PAY(22,"需要支付"),
 
     //关键词筛选
     KEYWORD_FIRST(31,"合同风险"),

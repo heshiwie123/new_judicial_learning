@@ -33,7 +33,8 @@ public class ExercisesRecordServiceImpl extends ServiceImpl<ExercisesRecordMappe
     @Override
     public Page<ExercisesRecord> getExercisesRecordListByUserId(Integer userId,Integer pageIndex,Integer pageSize) {
         log.info("ExercisesRecordServiceImpl=====>getExercisesRecordListByUserId"+"查找用户id userId:"+userId);
-
+        if(pageIndex == null)pageIndex = 1;
+        if(pageSize == null)pageSize = Integer.MAX_VALUE;
         Page<ExercisesRecord> exercisesRecordPageCondition = new Page<>(pageIndex,pageSize);
         queryWrapper.eq(ExercisesRecord::getUserId,userId);
         //查询

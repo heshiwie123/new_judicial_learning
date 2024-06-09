@@ -1,9 +1,11 @@
 package com.he;
 
 
+import com.he.domin.dto.AddCommentDto;
 import com.he.service.ICommentService;
 import jakarta.annotation.Resource;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -12,15 +14,17 @@ public class CommentTest {
     @Resource
     private ICommentService commentService;
 
-//    @Test
-//    public void test1(){
-//        AddCommentDto commentDto = new AddCommentDto();
-//        commentDto.setUserId(2);
-//        commentDto.setVideoId(1);
-//        commentDto.setContent("作者做的视频不错,我也已经点赞了！");
-//        int result = commentService.addComment(commentDto);
-//        System.out.println(result);
-//    }
+    @Test
+    public void test1(){
+        for( int i=0;i<20;i++){
+            AddCommentDto commentDto = new AddCommentDto();
+            commentDto.setUserId(1);
+            commentDto.setVideoId(1);
+            commentDto.setContent("作者666啊，第"+i+"号水军报道！");
+            int result = commentService.addComment(commentDto);
+
+        }
+    }
 //
 //    @Test
 //    public void test2(){

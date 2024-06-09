@@ -14,7 +14,7 @@ public class CorsConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("127.0.0.1") // 允许所有源访问，可以指定具体的源
+                        .allowedOrigins("http://127.0.0.1:8080","https://judiciallearningapplication.hswweb.cn/") // 允许所有源访问，可以指定具体的源
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许的请求方法
                         .allowedHeaders("*") // 允许所有请求头
                         .allowCredentials(true) // 是否允许发送Cookie

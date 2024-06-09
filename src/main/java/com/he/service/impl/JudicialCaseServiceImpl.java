@@ -15,11 +15,15 @@ public class JudicialCaseServiceImpl implements IJudicialCaseService {
 
     @Override
     public List<JudicialCase> getJudicialCaseList(Integer contract_type, Integer legal_nature, Integer formulation_organ, Integer pageIndex, Integer perPageSum) {
+        if (pageIndex == null) pageIndex = 1;
+        if (perPageSum == null) perPageSum = Integer.MAX_VALUE;
         return judicialCaseMapper.getJudicialCaseList(contract_type,legal_nature,formulation_organ,pageIndex,perPageSum);
     }
 
     @Override
     public List<JudicialCase> getJudicialCaseListByTile(String title, Integer pageIndex, Integer perPageSum) {
+        if (pageIndex == null) pageIndex = 1;
+        if (perPageSum == null) perPageSum = Integer.MAX_VALUE;
         return judicialCaseMapper.getJudicialCaseListByTile(title,pageIndex,perPageSum);
     }
 }

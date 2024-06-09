@@ -2,7 +2,7 @@ package com.he;
 
 import com.he.domin.entity.mysql.Video;
 import com.he.mapper.VideoMapper;
-import com.he.utill.DateFormatUtill;
+import com.he.util.DateFormatUtill;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +26,7 @@ public class VideoTest {
         video.setBriefIntro("本视频用于测试");
         video.setCoverImgUrl("http://localhost:1315/file/show.jpg");
         video.setPublishTime(DateFormatUtill.myLocalDateParse(2012,5,16));
-        video.setTitle("测试视频-合同法");
+        video.setTitle("测试视频-合同案例");
         video.setSumComment(0);
         video.setSumLike(0);
         video.setSumCollect(0);
@@ -41,7 +41,7 @@ public class VideoTest {
         video1.setBriefIntro("本视频用于测试");
         video1.setCoverImgUrl("http://localhost:1315/file/show.jpg");
         video1.setPublishTime(DateFormatUtill.myLocalDateParse(2012,5,16));
-        video1.setTitle("测试视频-合同法");
+        video1.setTitle("测试视频-合同案例");
         video1.setSumComment(38);
         video1.setSumLike(40);
         video1.setSumCollect(50);
@@ -56,7 +56,7 @@ public class VideoTest {
         video2.setBriefIntro("本视频用于测试");
         video2.setCoverImgUrl("http://localhost:1315/file/show.jpg");
         video2.setPublishTime(DateFormatUtill.myLocalDateParse(2012,5,16));
-        video2.setTitle("测试视频-合同法");
+        video2.setTitle("测试视频-合同案例");
         video2.setSumComment(68);
         video2.setSumLike(50);
         video2.setSumCollect(56);

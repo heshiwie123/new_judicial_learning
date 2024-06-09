@@ -60,6 +60,6 @@ public class Comment {
     /**
      * 是否删除
      */
-    @TableField(value = "is_deleted")
+    @TableLogic
     private Integer isDeleted;
 }

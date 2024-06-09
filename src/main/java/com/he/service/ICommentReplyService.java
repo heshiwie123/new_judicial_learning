@@ -12,7 +12,7 @@ public interface ICommentReplyService extends IService<CommentReply> {
      * @param commentId 评论id
      * @return 评论的回复列表
      */
-    public ArrayList<CommentReply> getCommentReplyByVideoIdAndCommentId(Integer commentId);
+    public ArrayList<CommentReply> getCommentReplyByCommentId(Integer commentId);
 
     /**
      * 根据用户id,顶层评论的id
@@ -20,7 +20,7 @@ public interface ICommentReplyService extends IService<CommentReply> {
      * @param commentReplyDto 回复评论的评论dto
      * @return 执行结果
      */
-    public Integer addCommentByUserIdAndVideoId(AddCommentReplyDto commentReplyDto);
+    public Integer addComment(AddCommentReplyDto commentReplyDto);
 
     /**
      * 根据评论回复的id 删除评论

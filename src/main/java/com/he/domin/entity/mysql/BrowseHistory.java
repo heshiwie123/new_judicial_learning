@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @TableName("browse_history")
@@ -56,7 +53,7 @@ public class BrowseHistory {
     @TableField(value = "is_show")
     private Boolean isShow;
     /**
-     * 观看的时间点
+     * 开始观看的时间点
      */
     @TableField(value = "create_time")
     private LocalDateTime createTime;

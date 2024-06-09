@@ -25,36 +25,36 @@ public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyMapper, Com
     @Resource
     private UserMapper  userMapper;
     @Resource
-    private LambdaQueryWrapper<CommentReply> lambdaQueryWrapper;
-    @Resource
     private LambdaUpdateWrapper<CommentReply> lambdaUpdateWrapper;
 
     @Override
-    public ArrayList<CommentReply> getCommentReplyByVideoIdAndCommentId(Integer commentId) {
+    public ArrayList<CommentReply> getCommentReplyByCommentId(Integer commentId) {
         log.info("CommentReplyServiceImpl===>getCommentReplyByVideoIdAndCommentId"
                 +"commentId:"+commentId);
-
+        LambdaQueryWrapper<CommentReply> lambdaQueryWrapper =new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CommentReply::getCommentId,commentId);
+//        lambdaQueryWrapper.eq(CommentReply::getIsDeleted,0);
 
         //查询
-        ArrayList<CommentReply> commentReplies = (ArrayList<CommentReply>) commentReplyMapper.selectList(lambdaQueryWrapper);
-
-
-        return commentReplies;
+        return (ArrayList<CommentReply>) commentReplyMapper.selectList(lambdaQueryWrapper);
     }
 
     @Override
-    public Integer addCommentByUserIdAndVideoId(AddCommentReplyDto commentReplyDto) {
+    public Integer addComment(AddCommentReplyDto commentReplyDto) {
         log.info("CommentReplyServiceImpl===>addCommentByUserIdAndVideoId"
                 +"replyUserId:"+commentReplyDto.getReplyUserId()
                 +"userId:"+commentReplyDto.getUserId()
                 +"commentId:"+commentReplyDto.getCommentId()
                 +"content:"+commentReplyDto.getContent());
+        User replyUser = new User();
         //获取回复用户的信息
-        User replyUser = userMapper.selectById(commentReplyDto.getReplyUserId());
+        if (commentReplyDto.getReplyUserId()!=null){
+            replyUser = userMapper.selectUserByUserId(commentReplyDto.getReplyUserId());
+        }
+
 
         //获取自身用户的信息
-        User selfUser = userMapper.selectById(commentReplyDto.getUserId());
+        User selfUser = userMapper.selectUserByUserId(commentReplyDto.getUserId());
         CommentReply commentReply = new CommentReply();
 
         //评论信息构建
@@ -65,22 +65,16 @@ public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyMapper, Com
                 .setCreatedTime(LocalDateTime.now())
                 .setProfilePhoto(selfUser.getProfilePhoto())
                 .setSumLike(0)
-                .setIsDeleted(0)
                 .setReplyUserId(commentReplyDto.getReplyUserId())
                 .setReplyUserName(replyUser.getUsername());
-        int result = commentReplyMapper.insert(commentReply);
-        return result;
+        return commentReplyMapper.insert(commentReply);
+
     }
     @Override
     public Integer deleteComment(Integer commentReplyId) {
         log.info("CommentReplyServiceImpl=====>deleteComment------>"+"要删除的评论id"+commentReplyId);
-
+        LambdaUpdateWrapper<CommentReply> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
         lambdaUpdateWrapper.eq(CommentReply::getId,commentReplyId);
-        lambdaUpdateWrapper.set(CommentReply::getIsDeleted,1);
-
-        int result = commentReplyMapper.update(null, lambdaUpdateWrapper);
-        //清除
-        lambdaUpdateWrapper.clear();
-        return result;
+        return commentReplyMapper.delete( lambdaUpdateWrapper);
     }
 }

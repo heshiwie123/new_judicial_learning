@@ -7,6 +7,7 @@ import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +17,8 @@ import java.util.List;
 public class RegulationTest {
     @Resource
     private IRegulationMapper regulationMapper;
+    @Resource
+    private PasswordEncoder passwordEncoder;
     @Resource
     private MongoTemplate mongoTemplate;
 
@@ -30,6 +33,12 @@ public class RegulationTest {
         List<Regulation> regulationList = regulationMapper.getRegulationListByTitle("宪法",null ,1, 3);
 
         regulationList.forEach(System.out::println);
+    }
+    @Test
+    public void test3(){
+
+        System.out.println("123456:");
+        System.out.println(passwordEncoder.encode("123456"));
     }
 
     @Test
@@ -49,4 +58,5 @@ public class RegulationTest {
         System.out.println(regulation1);
 
     }
+
 }

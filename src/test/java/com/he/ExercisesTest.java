@@ -44,4 +44,5 @@ public class ExercisesTest {
         List<Exercises> exercisesList = exercisesService.getExercisesList(1, 5);
         exercisesList.forEach(System.out::println);
     }
+
 }

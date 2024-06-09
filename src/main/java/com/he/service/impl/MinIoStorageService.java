@@ -2,6 +2,7 @@ package com.he.service.impl;
 
 import com.he.config.MinIoProperties;
 import com.he.service.FileStorageService;
+import com.he.util.Constant;
 import io.minio.*;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,7 +45,10 @@ public class MinIoStorageService implements FileStorageService {
 //            String uuid = UUID.randomUUID().toString();
             //组合文件名字
             //加一个/表示创建一个文件夹
-            String fileName = uploadTime+"/"+file.getOriginalFilename();
+            //这里是以日期进行二级区分
+//            String fileName = uploadTime+"/"+file.getOriginalFilename();
+            //我要以文件类型进行区分
+            String fileName = file.getContentType()+"/"+file.getOriginalFilename();
             //上传到MinIo
             minioClient.putObject(PutObjectArgs
                     .builder().bucket(minIoProperties.getBucketName())
@@ -54,7 +58,8 @@ public class MinIoStorageService implements FileStorageService {
                     .build());
 
             //返回文件路径
-            String url= minIoProperties.getUrl()+"/"+ minIoProperties.getBucketName()+"/"+fileName;
+            String url= Constant.CLOUD_FLARE_MINIO_SHOW_URL +"/"+ minIoProperties.getBucketName()+"/"+fileName;
+            log.info("本次文件上传后获取路径=====>{}",url);
             return url;
         }catch (Exception e){
             e.printStackTrace();

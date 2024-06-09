@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+
 @TableName("video_danmu")
 @Data
 @Accessors(chain = true)
@@ -17,7 +18,7 @@ public class Danmu {
     /**
      * 弹幕id
      */
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 用户id

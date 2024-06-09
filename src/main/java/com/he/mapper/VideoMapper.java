@@ -22,5 +22,5 @@ public interface VideoMapper extends BaseMapper<Video> {
                                                  @Param("paymentType") Boolean paymentType,
                                                  @Param("keyWord") String keyWord,
                                                  @Param("pageSkip")  int pageSkip,
-                                                 @Param("pageSize")int pageSize);
+                                                 @Param("pageSize")  int pageSize);
 }

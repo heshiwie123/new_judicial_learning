@@ -33,11 +33,11 @@ public class ExercisesOptionMapper implements IExercisesOptionMapper {
     }
 
     @Override
-    public HashMap<String, List<ExercisesOption>> getExercisesOptionByExercisesIdList(String[] exercisesIdList) {
-        log.info("ExercisesOptionMapper====>getExercisesOptionByExercisesIdList-----》"+ Arrays.toString(exercisesIdList));
+    public HashMap<String, List<ExercisesOption>> getExercisesOptionByExercisesIdList(List<String> exercisesIdList) {
+        log.info("ExercisesOptionMapper====>getExercisesOptionByExercisesIdList-----》"+ exercisesIdList);
 
         //构造query
-        Query query = new Query(Criteria.where("exercises_id").in((Object) exercisesIdList));
+        Query query = new Query(Criteria.where("exercises_id").in(exercisesIdList));
 
         //查询结果
         List<ExercisesOption> exercisesOptions = mongoTemplate.find(query,ExercisesOption.class,"exercises_option");

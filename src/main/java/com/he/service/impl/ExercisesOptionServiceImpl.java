@@ -21,8 +21,8 @@ public class ExercisesOptionServiceImpl implements IExercisesOptionService {
     }
 
     @Override
-    public HashMap<String, List<ExercisesOption>> getExercisesOptionByExercisesIdList(String[] exercisesIdList) {
+    public HashMap<String, List<ExercisesOption>> getExercisesOptionByExercisesIdList(List<String> exercisesIdList) {
 
-        return null;
+        return exercisesOptionMapper.getExercisesOptionByExercisesIdList(exercisesIdList);
     }
 }

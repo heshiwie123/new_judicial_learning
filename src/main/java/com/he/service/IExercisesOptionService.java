@@ -18,5 +18,5 @@ public interface IExercisesOptionService {
      * @param exercisesIdList 题目的id列表
      * @return 题目与选项的对应
      */
-    public HashMap<String,List<ExercisesOption>> getExercisesOptionByExercisesIdList(String[] exercisesIdList);
+    public HashMap<String,List<ExercisesOption>> getExercisesOptionByExercisesIdList(List<String> exercisesIdList);
 }

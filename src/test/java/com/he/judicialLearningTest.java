@@ -1,19 +1,17 @@
 package com.he;
 
 import com.he.domin.entity.mongo.JudicialCase;
-import com.he.domin.entity.mongo.Regulation;
 import com.he.domin.enums.ContractType;
 import com.he.domin.enums.FormulationOrganType;
 import com.he.domin.enums.LegalNatureType;
 import com.he.mapper.impl.JudicialCaseMapper;
-import com.he.utill.DateFormatUtill;
+import com.he.util.DateFormatUtill;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

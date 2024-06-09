@@ -44,6 +44,7 @@ public class CommentReply {
      */
     @TableField(value = "content")
     private String content;
+
     /**
      * 评论发布时间
      */
@@ -67,6 +68,6 @@ public class CommentReply {
     /**
      * 是否删除
      */
-    @TableField(value = "is_deleted")
+    @TableField
     private Integer isDeleted;
 }

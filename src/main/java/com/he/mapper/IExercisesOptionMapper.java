@@ -10,6 +10,6 @@ public interface IExercisesOptionMapper {
     public List<ExercisesOption> getExercisesOptionByExercisesId(String exercises_id);
 
     //根据题目的id列表批量获取
-    public HashMap<String,List<ExercisesOption>> getExercisesOptionByExercisesIdList(String[] exercisesIdList);
+    public HashMap<String,List<ExercisesOption>> getExercisesOptionByExercisesIdList(List<String> exercisesIdList);
 
 }

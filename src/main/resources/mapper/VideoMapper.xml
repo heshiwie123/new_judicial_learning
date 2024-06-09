@@ -19,25 +19,7 @@
             <if test="4 == compositeFilter">
                 order by v.sum_collect DESC
             </if>
-        limit #{pageSkip},#{pageSize}
+        limit #{pageSize} offset #{pageSkip}
 
-    </select>
-    <select id="getVideoListByScreenLatestPublish" resultType="video">
-        select * from video v
-        where v.payment_type = #{paymentType}
-          and v.title like CONCAT('%',#{keyWordType},'%')
-        order by v.publish_time  DESC
-    </select>
-    <select id="getVideoListByScreenMostDanmu" resultType="video">
-        select * from video v
-        where v.payment_type = #{paymentType}
-          and v.title like CONCAT('%',#{keyWordType},'%')
-        order by v.sum_danmu  DESC
-    </select>
-    <select id="getVideoListByScreenMostCollect" resultType="video">
-        select * from video v
-        where v.payment_type = #{paymentType}
-          and v.title like CONCAT('%',#{keyWordType},'%')
-        order by v.sum_collect  DESC
     </select>
 </mapper>

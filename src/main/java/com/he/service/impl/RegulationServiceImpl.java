@@ -7,6 +7,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class RegulationServiceImpl implements IRegulationService {
     @Resource
@@ -15,11 +16,15 @@ public class RegulationServiceImpl implements IRegulationService {
 
     @Override
     public List<Regulation> getRegulationList(Integer formulation_organ, Integer pageIndex, Integer perPageSum) {
-        return regulationMapper.getRegulationList(formulation_organ,pageIndex, perPageSum);
+        if (pageIndex == null) pageIndex = 1;
+        if (perPageSum == null) perPageSum = Integer.MAX_VALUE;
+        return regulationMapper.getRegulationList(formulation_organ, pageIndex, perPageSum);
     }
 
     @Override
     public List<Regulation> getRegulationListByTitle(String title, Integer formulation_organ, Integer pageIndex, Integer perPageSum) {
-        return regulationMapper.getRegulationListByTitle(title,formulation_organ,pageIndex,perPageSum);
+        if (pageIndex == null) pageIndex = 1;
+        if (perPageSum == null) perPageSum = Integer.MAX_VALUE;
+        return regulationMapper.getRegulationListByTitle(title, formulation_organ, pageIndex, perPageSum);
     }
 }

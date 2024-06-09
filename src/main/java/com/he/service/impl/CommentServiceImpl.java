@@ -24,25 +24,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private CommentMapper commentMapper;
     @Resource
     private UserMapper userMapper;
-    @Resource
-    private LambdaQueryWrapper<Comment> queryWrapper;
-    @Resource
-    private LambdaUpdateWrapper<Comment> updateWrapper;
+
     @Override
     public ArrayList<Comment> getCommentListByVideoId(Integer videoId) {
 
         log.info("CommentServiceImpl=====>getCommentListByVideoId------>"
                 +"videoId:"+videoId);
+        LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Comment::getVideoId,videoId);
-        //未删除
-        queryWrapper.eq(Comment::getIsDeleted,0);
-
         //查询
-        ArrayList<Comment> comments = (ArrayList<Comment>) commentMapper.selectList(queryWrapper);
-        //清除
-        queryWrapper.clear();
-
-        return comments;
+        return (ArrayList<Comment>) commentMapper.selectList(queryWrapper);
     }
 
 
@@ -53,10 +44,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 +"userId:"+commentDto.getUserId()
                 +"content:"+commentDto.getContent());
         //根据用户id查找用户信息
-        User user = userMapper.selectById(commentDto.getUserId());
+        User user = userMapper.selectUserByUserId(commentDto.getUserId());
 
         //构建评论信息
-        Comment comment =new Comment();
+        Comment comment = new Comment();
         comment.setUserId(commentDto.getUserId())
                 .setVideoId(commentDto.getVideoId())
                 .setContent(commentDto.getContent())
@@ -64,8 +55,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 .setCreatedTime(LocalDateTime.now())
                 .setProfilePhoto(user.getProfilePhoto())
                 .setSumLike(0)
-                .setSumReply(0)
-                .setIsDeleted(0);
+                .setSumReply(0);
         return commentMapper.insert(comment);
     }
 
@@ -73,12 +63,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     public Integer deleteComment(Integer commentId) {
         log.info("CommentServiceImpl=====>deleteComment------>"+"要删除的评论id"+commentId);
 
+        LambdaUpdateWrapper<Comment> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(Comment::getId,commentId);
-        updateWrapper.set(Comment::getIsDeleted,true);
+        return commentMapper.delete(updateWrapper);
 
-        int result = commentMapper.update(null, updateWrapper);
-        //清除
-        updateWrapper.clear();
-        return result;
     }
 }
