@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.he.domin.dto.AddUserRequestDto;
 import com.he.domin.dto.UserRequestDto;
+import com.he.domin.entity.mysql.RefreshToken;
 import com.he.domin.entity.mysql.User;
 import com.he.mapper.IdentityMapper;
+import com.he.mapper.RefreshTokenMapper;
 import com.he.mapper.UserMapper;
 import com.he.service.IUserService;
 import com.he.util.Constant;
@@ -32,6 +34,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Resource
     private UserMapper userMapper;
     @Resource
+    private RefreshTokenMapper refreshTokenMapper;
+    @Resource
     private AuthenticationManager authenticationManager;
 
     @Override
@@ -57,7 +61,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (user == null) {
             return null;
         }
-        //根据用户信息生成token
+
+        //生成refreshToken
+        Map<String, Object> refreshTokenmap = new HashMap<>();
+        refreshTokenmap.put("用户Id",user.getId());
+
+        //根据用户信息生成accessToken
         Map<String, Object> tokenmap = new HashMap<>();
         tokenmap.put("用户Id", user.getId());
         tokenmap.put("用户Name", user.getUsername());
@@ -71,15 +80,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //获取并存储用户个人信息
         userMap.put("userInfo", user);
         //存储token
-        userMap.put("token", JwtUtils.createToken(tokenmap));
+        userMap.put("access_token", JwtUtils.createToken(tokenmap));
+        String refreshToken = JwtUtils.createToken(refreshTokenmap);
+        userMap.put("refresh_token", refreshToken);
+
+        //同时需要增加一条RefreshToken信息
+        RefreshToken refreshTokenInfo = new RefreshToken();
+        refreshTokenInfo.setToken(refreshToken);
+
+        refreshTokenInfo.setUserId(user.getId());
+        refreshTokenMapper.insert(refreshTokenInfo);
+        refreshTokenInfo.setUserInfo(user);
         return userMap;
     }
 
     @Override
     public Boolean addUser(AddUserRequestDto addUserRequestDto) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(User::getUsername,addUserRequestDto.getUsername());
-        if (userMapper.exists(queryWrapper)){
+        queryWrapper.eq(User::getUsername, addUserRequestDto.getUsername());
+        if (userMapper.exists(queryWrapper)) {
             return Boolean.FALSE;
         }
         User user = new User();
@@ -96,10 +115,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setEmail(addUserRequestDto.getEmail());
         //用户默认身份设置
         log.info("用户默认身份initIdentity:==========================>{}", Constant.initIdentity);
-        Integer defaultIdentityId=identityMapper.selectIdentityIdByName(Constant.initIdentity);
+        Integer defaultIdentityId = identityMapper.selectIdentityIdByName(Constant.initIdentity);
 
         //存入
         userMapper.insert(user);
-        return userMapper.addUserIdentity(user.getId(),defaultIdentityId);
+        return userMapper.addUserIdentity(user.getId(), defaultIdentityId);
     }
 }
